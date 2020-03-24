@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/jinzhu/gorm"
 )
 
@@ -15,7 +14,6 @@ type Users struct {
 func CheckAuth(username, password string) (bool, error) {
 	var auth Users
 	err := db.Select("id").Where(Users{Username: username, Password: password}).First(&auth).Error
-	fmt.Print(err)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}

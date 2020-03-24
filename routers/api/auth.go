@@ -26,7 +26,6 @@ func GetAuth(c *gin.Context) {
 
 	a := auth{Username: username, Password: password}
 	ok, _ := valid.Valid(&a)
-
 	if !ok {
 		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)

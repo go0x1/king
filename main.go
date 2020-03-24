@@ -4,7 +4,10 @@ import (
 	_ "github.com/GoAdminGroup/go-admin/adapter/gin"              // 引入适配器，必须引入，如若不引入，则需要自己定义
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/mysql" // 引入对应数据库引擎
 	_ "github.com/GoAdminGroup/themes/sword"                      // 引入主题，必须引入，不然报错
+	"king/pkg/logging"
+	"king/pkg/util"
 	"king/routers"
+	"strconv"
 
 	"github.com/GoAdminGroup/go-admin/engine"
 	"github.com/GoAdminGroup/go-admin/examples/datamodel"
@@ -20,6 +23,8 @@ import (
 func init() {
 	setting.Setup()
 	models.Setup()
+	logging.Setup()
+	util.Setup()
 }
 
 func main() {
@@ -55,5 +60,5 @@ func main() {
 
 	_ = eng.AddConfig(cfg).AddPlugins(adminPlugin).Use(routersInit)
 
-	_ = routersInit.Run(":9033")
+	_ = routersInit.Run(":" + strconv.Itoa(setting.ServerSetting.HttpPort))
 }
