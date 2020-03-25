@@ -24,3 +24,17 @@ func CheckAuth(username, password string) (bool, error) {
 
 	return false, nil
 }
+
+func GetUserInfo(userId int) (*Users, error) {
+	var user Users
+	err := db.Where(Users{ID: userId}).First(&user).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
+	if user.ID > 0 {
+		return &user, nil
+	}
+
+	return nil, err
+}

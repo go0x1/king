@@ -11,10 +11,14 @@ import "github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
 //
 // "tags" => http://localhost:9033/admin/info/tags
 //
+// "feedbacks" => http://localhost:9033/admin/info/feedbacks
+//
 // example end
 //
 var Generators = map[string]table.Generator{
 	"tags": GetTagsTable,
+
+	"feedbacks": GetFeedbacksTable,
 
 	// generators end
 }

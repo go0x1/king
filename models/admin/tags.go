@@ -3,15 +3,15 @@ package admin
 import (
 	"github.com/GoAdminGroup/go-admin/context"
 	"github.com/GoAdminGroup/go-admin/modules/db"
+	form2 "github.com/GoAdminGroup/go-admin/plugins/admin/modules/form"
 	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
 	"github.com/GoAdminGroup/go-admin/template/types"
 	"github.com/GoAdminGroup/go-admin/template/types/form"
-	form2 "github.com/GoAdminGroup/go-admin/plugins/admin/modules/form"
 	"strconv"
 	"time"
 )
 
-const STATUS_DISABLE  = "0"
+const STATUS_DISABLE = "0"
 const STATUS_ENABLE = "1"
 
 func GetTagsTable(ctx *context.Context) table.Table {
@@ -51,7 +51,7 @@ func GetTagsTable(ctx *context.Context) table.Table {
 		FieldOptions(types.FieldOptions{
 			{Text: "关闭", Value: "0"},
 			{Text: "启用", Value: "1"},
-	}).FieldDefault("0")
+		}).FieldDefault("0")
 
 	formList.SetPreProcessFn(func(values form2.Values) form2.Values {
 		nowTimestamp := strconv.FormatInt(time.Now().Unix(), 10)
@@ -62,7 +62,7 @@ func GetTagsTable(ctx *context.Context) table.Table {
 			values.Add("modified_at", nowTimestamp)
 		}
 
-		return values;
+		return values
 	})
 
 	formList.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
