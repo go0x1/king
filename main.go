@@ -10,7 +10,7 @@ import (
 	"strconv"
 
 	"github.com/GoAdminGroup/go-admin/engine"
-	"github.com/GoAdminGroup/go-admin/examples/datamodel"
+	datamodel "king/models/admin"
 	"github.com/GoAdminGroup/go-admin/modules/config"
 	"github.com/GoAdminGroup/go-admin/modules/language"
 	"github.com/GoAdminGroup/go-admin/plugins/admin"

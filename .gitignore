@@ -1,5 +1,7 @@
 .idea/
 .DS_Store
+adm.exe
+king.exe
 
 vendor/*
 runtime/*
