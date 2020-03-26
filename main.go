@@ -10,11 +10,11 @@ import (
 	"strconv"
 
 	"github.com/GoAdminGroup/go-admin/engine"
-	datamodel "king/models/admin"
 	"github.com/GoAdminGroup/go-admin/modules/config"
 	"github.com/GoAdminGroup/go-admin/modules/language"
 	"github.com/GoAdminGroup/go-admin/plugins/admin"
 	"github.com/gin-gonic/gin"
+	datamodel "king/admin"
 
 	"king/models"
 	"king/pkg/setting"
@@ -37,14 +37,14 @@ func main() {
 	cfg := config.Config{
 		Databases: config.DatabaseList{
 			"default": {
-				Host:        setting.DatabaseSetting.Host,
-				Port:        setting.DatabaseSetting.Port,
-				User:        setting.DatabaseSetting.User,
-				Pwd:         setting.DatabaseSetting.Password,
-				Name:        setting.DatabaseSetting.Name,
-				MaxIdleCon:  50,
-				MaxOpenCon:  150,
-				Driver:      config.DriverMysql,
+				Host:       setting.DatabaseSetting.Host,
+				Port:       setting.DatabaseSetting.Port,
+				User:       setting.DatabaseSetting.User,
+				Pwd:        setting.DatabaseSetting.Password,
+				Name:       setting.DatabaseSetting.Name,
+				MaxIdleCon: 50,
+				MaxOpenCon: 150,
+				Driver:     config.DriverMysql,
 			},
 		},
 		UrlPrefix: setting.AdminSetting.AdminPrefix,
