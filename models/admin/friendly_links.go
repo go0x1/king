@@ -7,31 +7,37 @@ import (
 	"github.com/GoAdminGroup/go-admin/template/types/form"
 )
 
-func GetTagsTable(ctx *context.Context) table.Table {
+func GetFriendlyLinksTable(ctx *context.Context) table.Table {
 
-	tagsTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
+	friendlyLinksTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
 
-	info := tagsTable.GetInfo()
+	info := friendlyLinksTable.GetInfo()
 
 	info.AddField("Id", "id", db.Int).FieldFilterable()
 	info.AddField("Name", "name", db.Varchar)
+	info.AddField("Picture", "picture", db.Varchar)
+	info.AddField("Description", "description", db.Varchar)
+	info.AddField("Url", "url", db.Varchar)
 	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("Created_at", "created_at", db.Int)
 	info.AddField("Modified_at", "modified_at", db.Int)
 	info.AddField("Deleted_at", "deleted_at", db.Int)
 
-	info.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
+	info.SetTable("friendly_links").SetTitle("Friendly_links").SetDescription("Friendly_links")
 
-	formList := tagsTable.GetForm()
+	formList := friendlyLinksTable.GetForm()
 
 	formList.AddField("Id", "id", db.Int, form.Default).FieldNotAllowAdd()
 	formList.AddField("Name", "name", db.Varchar, form.Text)
+	formList.AddField("Picture", "picture", db.Varchar, form.Text)
+	formList.AddField("Description", "description", db.Varchar, form.Text)
+	formList.AddField("Url", "url", db.Varchar, form.Text)
 	formList.AddField("Status", "status", db.Tinyint, form.Number)
 	formList.AddField("Created_at", "created_at", db.Int, form.Number)
 	formList.AddField("Modified_at", "modified_at", db.Int, form.Number)
 	formList.AddField("Deleted_at", "deleted_at", db.Int, form.Number)
 
-	formList.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
+	formList.SetTable("friendly_links").SetTitle("Friendly_links").SetDescription("Friendly_links")
 
-	return tagsTable
+	return friendlyLinksTable
 }

@@ -7,31 +7,37 @@ import (
 	"github.com/GoAdminGroup/go-admin/template/types/form"
 )
 
-func GetTagsTable(ctx *context.Context) table.Table {
+func GetReportsTable(ctx *context.Context) table.Table {
 
-	tagsTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
+	reportsTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
 
-	info := tagsTable.GetInfo()
+	info := reportsTable.GetInfo()
 
 	info.AddField("Id", "id", db.Int).FieldFilterable()
-	info.AddField("Name", "name", db.Varchar)
+	info.AddField("Data_id", "data_id", db.Int)
+	info.AddField("Type", "type", db.Tinyint)
+	info.AddField("Report_type", "report_type", db.Tinyint)
+	info.AddField("Content", "content", db.Mediumtext)
 	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("Created_at", "created_at", db.Int)
 	info.AddField("Modified_at", "modified_at", db.Int)
 	info.AddField("Deleted_at", "deleted_at", db.Int)
 
-	info.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
+	info.SetTable("reports").SetTitle("Reports").SetDescription("Reports")
 
-	formList := tagsTable.GetForm()
+	formList := reportsTable.GetForm()
 
 	formList.AddField("Id", "id", db.Int, form.Default).FieldNotAllowAdd()
-	formList.AddField("Name", "name", db.Varchar, form.Text)
+	formList.AddField("Data_id", "data_id", db.Int, form.Number)
+	formList.AddField("Type", "type", db.Tinyint, form.Number)
+	formList.AddField("Report_type", "report_type", db.Tinyint, form.Number)
+	formList.AddField("Content", "content", db.Mediumtext, form.RichText)
 	formList.AddField("Status", "status", db.Tinyint, form.Number)
 	formList.AddField("Created_at", "created_at", db.Int, form.Number)
 	formList.AddField("Modified_at", "modified_at", db.Int, form.Number)
 	formList.AddField("Deleted_at", "deleted_at", db.Int, form.Number)
 
-	formList.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
+	formList.SetTable("reports").SetTitle("Reports").SetDescription("Reports")
 
-	return tagsTable
+	return reportsTable
 }

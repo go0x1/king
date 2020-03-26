@@ -7,31 +7,33 @@ import (
 	"github.com/GoAdminGroup/go-admin/template/types/form"
 )
 
-func GetTagsTable(ctx *context.Context) table.Table {
+func GetGroupsTable(ctx *context.Context) table.Table {
 
-	tagsTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
+	groupsTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
 
-	info := tagsTable.GetInfo()
+	info := groupsTable.GetInfo()
 
 	info.AddField("Id", "id", db.Int).FieldFilterable()
 	info.AddField("Name", "name", db.Varchar)
+	info.AddField("Sort", "sort", db.Tinyint)
 	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("Created_at", "created_at", db.Int)
 	info.AddField("Modified_at", "modified_at", db.Int)
 	info.AddField("Deleted_at", "deleted_at", db.Int)
 
-	info.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
+	info.SetTable("groups").SetTitle("Groups").SetDescription("Groups")
 
-	formList := tagsTable.GetForm()
+	formList := groupsTable.GetForm()
 
 	formList.AddField("Id", "id", db.Int, form.Default).FieldNotAllowAdd()
 	formList.AddField("Name", "name", db.Varchar, form.Text)
+	formList.AddField("Sort", "sort", db.Tinyint, form.Number)
 	formList.AddField("Status", "status", db.Tinyint, form.Number)
 	formList.AddField("Created_at", "created_at", db.Int, form.Number)
 	formList.AddField("Modified_at", "modified_at", db.Int, form.Number)
 	formList.AddField("Deleted_at", "deleted_at", db.Int, form.Number)
 
-	formList.SetTable("tags").SetTitle("Tags").SetDescription("Tags")
+	formList.SetTable("groups").SetTitle("Groups").SetDescription("Groups")
 
-	return tagsTable
+	return groupsTable
 }
