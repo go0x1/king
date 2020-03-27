@@ -12,10 +12,9 @@ import (
 	"strconv"
 )
 
-const TITLE = "意见反馈"
-const DESCRIPTION = "意见反馈"
-
 func GetFeedbacksTable(ctx *context.Context) table.Table {
+	const title = "意见反馈"
+	const description = "意见反馈"
 
 	feedbacksTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
 
@@ -48,7 +47,7 @@ func GetFeedbacksTable(ctx *context.Context) table.Table {
 	info.AddField("创建时间", "created_at", db.Int)
 	info.AddField("更新时间", "modified_at", db.Int)
 
-	info.SetTable("feedbacks").SetTitle(TITLE).SetDescription(DESCRIPTION)
+	info.SetTable("feedbacks").SetTitle(title).SetDescription(description)
 
 	formList := feedbacksTable.GetForm()
 
@@ -61,7 +60,7 @@ func GetFeedbacksTable(ctx *context.Context) table.Table {
 	formList.AddField("图片", "picture", db.Varchar, form.Text)
 	formList.AddField("状态", "status", db.Tinyint, form.Number)
 
-	formList.SetTable("feedbacks").SetTitle(TITLE).SetDescription(DESCRIPTION)
+	formList.SetTable("feedbacks").SetTitle(title).SetDescription(description)
 
 	return feedbacksTable
 }

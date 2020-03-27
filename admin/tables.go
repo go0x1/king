@@ -23,6 +23,8 @@ import "github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
 // "topics" => http://localhost:9033/admin/info/topics
 // "users" => http://localhost:9033/admin/info/users
 //
+// "followers" => http://localhost:9033/admin/info/followers
+//
 // example end
 //
 var Generators = map[string]table.Generator{
@@ -40,6 +42,8 @@ var Generators = map[string]table.Generator{
 	"tags":            GetTagsTable,
 	"topics":          GetTopicsTable,
 	"users":           GetUsersTable,
+
+	"followers": GetFollowersTable,
 
 	// generators end
 }
