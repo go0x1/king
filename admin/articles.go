@@ -15,6 +15,9 @@ import (
 
 func GetArticlesTable(ctx *context.Context) table.Table {
 
+	const title = "博文"
+	const description = "博文"
+
 	articlesTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
 
 	info := articlesTable.GetInfo().SetFilterFormLayout(form.LayoutTwoCol)
@@ -58,7 +61,7 @@ func GetArticlesTable(ctx *context.Context) table.Table {
 		return time.Unix(n, 0).Format("2006-01-02 15:04:05")
 	})
 
-	info.SetTable("articles").SetTitle("博文").SetDescription("博文")
+	info.SetTable("articles").SetTitle(title).SetDescription(description)
 
 	formList := articlesTable.GetForm()
 
@@ -97,7 +100,7 @@ func GetArticlesTable(ctx *context.Context) table.Table {
 		return values
 	})
 
-	formList.SetTable("articles").SetTitle("博文").SetDescription("博文")
+	formList.SetTable("articles").SetTitle(title).SetDescription(description)
 
 	return articlesTable
 }
