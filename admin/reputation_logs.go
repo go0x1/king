@@ -4,40 +4,60 @@ import (
 	"github.com/GoAdminGroup/go-admin/context"
 	"github.com/GoAdminGroup/go-admin/modules/db"
 	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
-	"github.com/GoAdminGroup/go-admin/template/types/form"
+	"github.com/GoAdminGroup/go-admin/template/types"
+	"king/models"
+	"strconv"
+	"time"
 )
 
 func GetReputationLogsTable(ctx *context.Context) table.Table {
+
+	const title = "人气值"
+	const description = "人气值"
 
 	reputationLogsTable := table.NewDefaultTable(table.DefaultConfigWithDriver("mysql"))
 
 	info := reputationLogsTable.GetInfo()
 
-	info.AddField("Id", "id", db.Int).FieldFilterable()
-	info.AddField("User_id", "user_id", db.Int)
-	info.AddField("Data_id", "data_id", db.Int)
-	info.AddField("Type", "type", db.Tinyint)
-	info.AddField("Action", "action", db.Varchar)
-	info.AddField("Score", "score", db.Int)
-	info.AddField("Created_at", "created_at", db.Int)
-	info.AddField("Modified_at", "modified_at", db.Int)
-	info.AddField("Deleted_at", "deleted_at", db.Int)
+	info.HideDetailButton()
+	info.HideNewButton()
+	info.HideEditButton()
 
-	info.SetTable("reputation_logs").SetTitle("Reputation_logs").SetDescription("Reputation_logs")
+	info.AddField("Id", "id", db.Int).FieldSortable()
+	info.AddField("用户名", "user_id", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
+		n, _ := strconv.Atoi(value.Value)
+		userInfo, err := models.GetUserInfo(n)
+		if err != nil {
+			return ""
+		}
+		return userInfo.Username
+	})
+	info.AddField("内容id", "data_id", db.Int)
+	info.AddField("内容类型", "type", db.Tinyint).FieldDisplay(func(value types.FieldModel) interface{} {
+		if value.Value == "0" {
+			return "博文"
+		}
 
-	formList := reputationLogsTable.GetForm()
+		return "谈论"
+	})
+	info.AddField("操作", "action", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
+		if value.Value == "up" {
+			return "增加"
+		}
 
-	formList.AddField("Id", "id", db.Int, form.Default).FieldNotAllowAdd()
-	formList.AddField("User_id", "user_id", db.Int, form.Number)
-	formList.AddField("Data_id", "data_id", db.Int, form.Number)
-	formList.AddField("Type", "type", db.Tinyint, form.Number)
-	formList.AddField("Action", "action", db.Varchar, form.Text)
-	formList.AddField("Score", "score", db.Int, form.Number)
-	formList.AddField("Created_at", "created_at", db.Int, form.Number)
-	formList.AddField("Modified_at", "modified_at", db.Int, form.Number)
-	formList.AddField("Deleted_at", "deleted_at", db.Int, form.Number)
+		return "减少"
+	})
+	info.AddField("分数", "score", db.Int)
+	info.AddField("创建时间", "created_at", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
+		n, _ := strconv.ParseInt(value.Value, 10, 64)
+		return time.Unix(n, 0).Format("2006-01-02 15:04:05")
+	})
+	info.AddField("更新时间", "modified_at", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
+		n, _ := strconv.ParseInt(value.Value, 10, 64)
+		return time.Unix(n, 0).Format("2006-01-02 15:04:05")
+	})
 
-	formList.SetTable("reputation_logs").SetTitle("Reputation_logs").SetDescription("Reputation_logs")
+	info.SetTable("reputation_logs").SetTitle(title).SetDescription(description)
 
 	return reputationLogsTable
 }
