@@ -18,6 +18,7 @@ type App struct {
 	LogSaveName     string
 	LogFileExt      string
 	TimeFormat      string
+	SwaggerUrl      string
 }
 
 var AppSetting = &App{}

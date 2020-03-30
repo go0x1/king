@@ -4,10 +4,12 @@ import (
 	_ "github.com/GoAdminGroup/go-admin/adapter/gin"              // 引入适配器，必须引入，如若不引入，则需要自己定义
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/mysql" // 引入对应数据库引擎
 	_ "github.com/GoAdminGroup/themes/sword"                      // 引入主题，必须引入，不然报错
+	"github.com/gin-contrib/cors"
 	"king/pkg/logging"
 	"king/pkg/util"
 	"king/routers"
 	"strconv"
+	"time"
 
 	"github.com/GoAdminGroup/go-admin/engine"
 	"github.com/GoAdminGroup/go-admin/modules/config"
@@ -55,6 +57,21 @@ func main() {
 		Theme:    "sword",
 		Language: language.CN,
 	}
+
+	routersInit.Use(cors.New(cors.Config{
+		AllowAllOrigins:        false,
+		AllowOrigins:           []string{"*"},
+		AllowOriginFunc:        nil,
+		AllowMethods:           []string{"PUT", "PATCH", "POST", "DELETE"},
+		AllowHeaders:           []string{"Origin"},
+		AllowCredentials:       true,
+		ExposeHeaders:          nil,
+		MaxAge:                 12 * time.Hour,
+		AllowWildcard:          false,
+		AllowBrowserExtensions: false,
+		AllowWebSockets:        false,
+		AllowFiles:             false,
+	}))
 
 	adminPlugin := admin.NewAdmin(datamodel.Generators)
 
