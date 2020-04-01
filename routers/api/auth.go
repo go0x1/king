@@ -17,14 +17,15 @@ type auth struct {
 	Password string `valid:"Required; MaxSize(100)"`
 }
 
-// @Summary Get Auth
-// @Produce  json
-// @Param username query string true "username"
-// @Param password query string true "password"
+// @Summary post Auth
+// @Produce json
+// @Accept multipart/form-data
+// @Param username formData string true "username"
+// @Param password formData string true "password"
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
-// @Router /auth [get]
-func GetAuth(c *gin.Context) {
+// @Router /auth [post]
+func PostAuth(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}
 

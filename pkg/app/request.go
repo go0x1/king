@@ -3,8 +3,6 @@ package app
 import (
 	"github.com/astaxie/beego/validation"
 	"king/pkg/logging"
-
-	//"king/pkg/logging"
 )
 
 // MarkErrors logs error logs
